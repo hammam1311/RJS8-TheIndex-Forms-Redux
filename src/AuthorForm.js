@@ -15,6 +15,9 @@ class AuthorForm extends Component {
     if (this.props.errors.length) this.props.resetErrors();
   }
 
+  textChangeHandler = event =>
+    this.setState({ [event.target.name]: event.target.value });
+
   submitAuthor = event => {
     event.preventDefault();
     this.props.postAuthor(this.state, this.props.closeModal);
@@ -37,19 +40,34 @@ class AuthorForm extends Component {
             <div className="input-group-prepend">
               <span className="input-group-text">First Name</span>
             </div>
-            <input type="text" className="form-control" name="first_name" />
+            <input
+              type="text"
+              className="form-control"
+              name="first_name"
+              onChange={this.textChangeHandler}
+            />
           </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text">Last Name</span>
             </div>
-            <input type="text" className="form-control" name="last_name" />
+            <input
+              type="text"
+              className="form-control"
+              name="last_name"
+              onChange={this.textChangeHandler}
+            />
           </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text">Image URL</span>
             </div>
-            <input type="text" className="form-control" name="imageUrl" />
+            <input
+              type="text"
+              className="form-control"
+              name="imageUrl"
+              onChange={this.textChangeHandler}
+            />
           </div>
           <input type="submit" />
         </form>
