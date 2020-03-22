@@ -6,20 +6,18 @@ const instance = axios.create({
   baseURL: "https://the-index-api.herokuapp.com"
 });
 
-export const fetchAuthorDetail = authorID => {
-  return async dispatch => {
+export const fetchAuthorDetail = authorID => async dispatch => {
+  dispatch({
+    type: SET_AUTHOR_LOADING
+  });
+  try {
+    const res = await instance.get(`/api/authors/${authorID}/`);
+    const author = res.data;
     dispatch({
-      type: SET_AUTHOR_LOADING
+      type: SET_AUTHOR_DETAIL,
+      payload: author
     });
-    try {
-      const res = await instance.get(`/api/authors/${authorID}/`);
-      const author = res.data;
-      dispatch({
-        type: SET_AUTHOR_DETAIL,
-        payload: author
-      });
-    } catch (err) {}
-  };
+  } catch (err) {}
 };
 
 //POST THE BOOK TO https://the-index-api.herokuapp.com/api/books/
