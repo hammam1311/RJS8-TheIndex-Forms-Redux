@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import { SET_AUTHORS, ADD_AUTHOR, SET_ERRORS } from "./actionTypes";
 import { resetErrors } from "./errors";
 
 import axios from "axios";
@@ -12,7 +12,7 @@ export const fetchAuthors = () => {
     try {
       const res = await instance.get("/api/authors/");
       const authors = res.data;
-      dispatch({ type: actionTypes.FETCH_AUTHORS, payload: authors });
+      dispatch({ type: SET_AUTHORS, payload: authors });
     } catch (err) {
       console.error(err);
     }
@@ -27,13 +27,13 @@ export const postAuthor = (newAuthor, closeModal) => {
       const author = res.data;
       dispatch(resetErrors());
       dispatch({
-        type: actionTypes.POST_AUTHOR,
+        type: ADD_AUTHOR,
         payload: author
       });
       closeModal();
     } catch (err) {
       dispatch({
-        type: actionTypes.SET_ERRORS,
+        type: SET_ERRORS,
         payload: err.response.data
       });
     }

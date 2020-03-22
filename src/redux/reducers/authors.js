@@ -1,4 +1,4 @@
-import * as actionTypes from "../actions/actionTypes";
+import { SET_AUTHORS, ADD_AUTHOR } from "../actions/actionTypes";
 
 const initialState = {
   authors: [],
@@ -7,14 +7,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_AUTHORS:
+    case SET_AUTHORS:
       return {
         ...state,
         authors: action.payload,
         filteredAuthors: action.payload,
         loading: false
       };
-    case actionTypes.POST_AUTHOR:
+    case ADD_AUTHOR:
       return {
         ...state,
         authors: [action.payload].concat(state.authors)
