@@ -8,18 +8,18 @@ class AddBookModal extends Component {
     open: false
   };
 
-  onOpenModal = () => this.setState({ open: true });
+  openModal = () => this.setState({ open: true });
 
-  onCloseModal = () => this.setState({ open: false });
+  closeModal = () => this.setState({ open: false });
 
   render() {
     const { open } = this.state;
     return (
       <div>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <BookForm author={this.props.author} closeModal={this.onCloseModal} />
+        <Modal open={open} onClose={this.closeModal} center>
+          <BookForm author={this.props.author} closeModal={this.closeModal} />
         </Modal>
-        <input type="button" onClick={this.onOpenModal} value="Add New Book!" />
+        <input type="button" onClick={this.openModal} value="Add New Book!" />
       </div>
     );
   }

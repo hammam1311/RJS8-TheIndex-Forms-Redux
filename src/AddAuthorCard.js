@@ -8,20 +8,20 @@ class AddAuthorCard extends Component {
     open: false
   };
 
-  onOpenModal = () => this.setState({ open: true });
+  openModal = () => this.setState({ open: true });
 
-  onCloseModal = () => this.setState({ open: false });
+  closeModal = () => this.setState({ open: false });
 
   render() {
     const { open } = this.state;
     return (
       <div className="col-lg-4 col-md-6 col-12">
         <div>
-          <Modal open={open} onClose={this.onCloseModal} center>
-            <AuthorForm closeModal={this.onCloseModal} />
+          <Modal open={open} onClose={this.closeModal} center>
+            <AuthorForm closeModal={this.closeModal} />
           </Modal>
         </div>
-        <div className="card" onClick={this.onOpenModal}>
+        <div className="card" onClick={this.openModal}>
           <div className="image">
             <img
               className="card-img-top img-fluid"

@@ -6,7 +6,7 @@ import Loading from "./Loading";
 
 import { connect } from "react-redux";
 
-import * as actionCreators from "./store/actions/index";
+import { fetchAuthorDetail } from "./redux/actions";
 
 class AuthorDetail extends Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ class AuthorDetail extends Component {
     if (this.props.loading) {
       return <Loading />;
     } else {
-      const author = this.props.author;
+      const { author } = this.props;
       const authorName = `${author.first_name} ${author.last_name}`;
       return (
         <div className="author">
@@ -38,18 +38,15 @@ class AuthorDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    author: state.rootAuthor.author,
-    loading: state.rootAuthor.loading
+    author: state.authorState.author,
+    loading: state.authorState.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAuthor: authorID => dispatch(actionCreators.fetchAuthorDetail(authorID))
+    getAuthor: authorID => dispatch(fetchAuthorDetail(authorID))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AuthorDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorDetail);

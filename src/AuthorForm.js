@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import * as actionCreators from "./store/actions/index";
+import { postAuthor, resetErrors } from "./redux/actions/index";
 
 class AuthorForm extends Component {
   state = {
@@ -21,7 +21,7 @@ class AuthorForm extends Component {
   };
 
   render() {
-    const errors = this.props.errors;
+    const { errors } = this.props;
 
     return (
       <div className="mt-5 p-2">
@@ -60,19 +60,16 @@ class AuthorForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    errors: state.rootErrors.errors
+    errors: state.errorsState.errors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     postAuthor: (newAuthor, closeModal) =>
-      dispatch(actionCreators.postAuthor(newAuthor, closeModal)),
-    resetErrors: () => dispatch(actionCreators.resetErrors())
+      dispatch(postAuthor(newAuthor, closeModal)),
+    resetErrors: () => dispatch(resetErrors())
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AuthorForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorForm);
