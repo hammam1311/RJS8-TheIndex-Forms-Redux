@@ -1,4 +1,9 @@
-import { SET_AUTHOR_LOADING, SET_AUTHOR_DETAIL } from "./actionTypes";
+import {
+  SET_AUTHOR_LOADING,
+  SET_AUTHOR_DETAIL,
+  ADD_BOOK,
+  SET_ERRORS
+} from "./actionTypes";
 
 import axios from "axios";
 
@@ -26,13 +31,13 @@ export const postBook = (book, closeModal) => async dispatch => {
     const res = await instance.post("/api/books/", book);
     const newBook = res.data;
     dispatch({
-      type: actionTypes.POST_BOOK,
+      type: ADD_BOOK,
       payload: newBook
     });
     closeModal();
   } catch (err) {
     dispatch({
-      type: actionTypes.SET_ERRORS,
+      type: SET_ERRORS,
       payload: err.response.data
     });
   }

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import * as actionCreators from "./store/actions/index";
+import { postBook, resetErrors } from "./redux/actions";
 
 class BookForm extends Component {
   state = {
     title: "",
-    color: ""
+    color: "",
+    authors: [this.props.author.id]
   };
 
   textChange = event =>
@@ -14,7 +15,7 @@ class BookForm extends Component {
 
   submitBook = event => {
     event.preventDefault();
-    this.props.postBook(this.state, this.props.author, this.props.closeModal);
+    this.props.postBook(this.state, this.props.closeModal);
   };
 
   render() {
@@ -70,19 +71,16 @@ class BookForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    errors: state.rootErrors.errors
+    errors: state.errorsState.errors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     postBook: (newBook, author, closeModal) =>
-      dispatch(actionCreators.postBook(newBook, author, closeModal)),
-    resetErrors: () => dispatch(actionCreators.resetErrors())
+      dispatch(postBook(newBook, author, closeModal)),
+    resetErrors: () => dispatch(resetErrors())
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BookForm);
+export default connect(mapStateToProps, mapDispatchToProps)(BookForm);
