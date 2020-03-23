@@ -1,19 +1,29 @@
 import React, { Component } from "react";
-
+import Modal from "react-responsive-modal";
 // Components
 import BookTable from "./BookTable";
 import Loading from "./Loading";
+import BookForm from "./BookForm"
 
 import { connect } from "react-redux";
 
 import { fetchAuthorDetail } from "./redux/actions";
 
 class AuthorDetail extends Component {
+  state = {
+    open: false
+  };
+
+  openModal = () => this.setState({ open: true });
+
+  closeModal = () => this.setState({ open: false });
+
   componentDidMount() {
     this.props.getAuthor(this.props.match.params.authorID);
   }
 
   render() {
+    const { open } = this.state;
     if (this.props.loading) {
       return <Loading />;
     } else {
@@ -30,6 +40,12 @@ class AuthorDetail extends Component {
             />
           </div>
           <BookTable books={author.books} />
+          <Modal open={open} onClose={this.closeModal} center>
+            <BookForm author={author} closeModal={this.closeModal} />
+          </Modal>
+          <div className="btn btn-secondary" onClick={this.openModal}>
+            Add Book
+          </div>
         </div>
       );
     }
